@@ -35,4 +35,4 @@ Js.log(Animal.mate(larry, larsa));
 Js.log(Animal.mate(mark, marla));
 
 /* 🛑Errors with 1 dog 1 cat when uncommented at compile time */
-// Js.log(Animal.mate(larry, marla));
+/* Js.log(Animal.mate(larry, marla)); */
