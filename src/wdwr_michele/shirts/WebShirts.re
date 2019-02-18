@@ -92,11 +92,13 @@ switch (calcButton) {
 | None => ()
 };
 
-// let windowClickHandler = (e: Dom.mouseEvent) => {
-//   Js.log2("WindowClick:event", e);
-// };
+/*
+ let windowClickHandler = (e: Dom.mouseEvent) => {
+   Js.log2("WindowClick:event", e);
+ };
 
-// D.EventTarget.addMouseMoveEventListener(
-//   windowClickHandler,
-//   D.Document.asEventTarget(D.document),
-// );
+ D.EventTarget.addMouseMoveEventListener(
+   windowClickHandler,
+   D.Document.asEventTarget(D.document),
+ );
+ */
