@@ -5,9 +5,6 @@
         "build_single": "bsb -make-world",
         "build": "bsb -make-world -w",
         "clean": "bsb -clean-world",
-        "bundle": "parcel build src/wdwr_michele/shirts/index.html --public-url /",
-        "bundle_and_serve": "parcel src/wdwr_michele/shirts/index.html",
-        "start": "npm-run-all --parallel build bundle_and_serve"
     },
     "keywords": [
         "BuckleScript"
@@ -18,8 +15,6 @@
         "@glennsl/bs-json": "^3.0.0",
         "bs-platform": "^4.0.18",
         "bs-webapi": "^0.13.2",
-        "npm-run-all": "^4.1.5",
-        "parcel-bundler": "^1.11.0"
     },
     "dependencies": {}
 }
