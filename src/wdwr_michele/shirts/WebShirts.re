@@ -39,6 +39,11 @@ let shirtSizeOfString = (str: string): option(shirtSize) => {
   };
 };
 
+let quantityInput = Doc.getElementById("quantity", D.document);
+let sizeOption = Doc.getElementById("size", D.document);
+let calcButton = Doc.getElementById("calculate", D.document);
+let priceOutput = Doc.getElementById("price", D.document);
+
 let getValue = (element: option(Elem.t)): option(string) => {
   element
   ->Belt.Option.map(_, Elem.unsafeAsHtmlElement)
@@ -52,13 +57,11 @@ let toInt = (s: string): option(int) => {
   };
 };
 
-let calculate = (_: Dom.event): unit => {
-  let quantity =
-    getValue(Doc.getElementById("quantity", D.document))
-    ->Belt.Option.flatMap(_, toInt);
+let calculate = (): unit => {
+  let quantity = getValue(quantityInput)->Belt.Option.flatMap(_, toInt);
 
   let unitPrice =
-    getValue(Doc.getElementById("size", D.document))
+    getValue(sizeOption)
     ->Belt.Option.flatMap(_, shirtSizeOfString)
     ->Belt.Option.map(_, price);
 
@@ -74,23 +77,62 @@ let calculate = (_: Dom.event): unit => {
     | None => ""
     };
 
-  let _ =
-    Doc.getElementById("price", D.document)
-    ->Belt.Option.map(_, Elem.setInnerText(_, priceString));
+  let _ = priceOutput->Belt.Option.map(_, Elem.setInnerText(_, priceString));
 
   (); /* return unit */
 };
 
-let calcButton = Doc.getElementById("calculate", D.document);
-switch (calcButton) {
-| Some(element) =>
-  D.EventTarget.addEventListener(
-    "click",
-    calculate,
-    D.Element.asEventTarget(element),
-  )
-| None => ()
+let changeHandler = (_: Dom.event) => {
+  calculate();
 };
+
+let addEventListener =
+    (element: option(Dom.element), eventHandler: Dom.event => unit): unit => {
+  switch (element) {
+  | Some(elm) =>
+    D.EventTarget.addEventListener(
+      "change",
+      eventHandler,
+      D.Element.asEventTarget(elm),
+    )
+  | None => ()
+  };
+};
+
+addEventListener(quantityInput, changeHandler);
+addEventListener(sizeOption, changeHandler);
+
+/*
+ let quantityChangeHandler = (_: Dom.inputEvent): unit => {
+   calculate();
+ };
+
+  switch (quantityInput) {
+  | Some(elm) =>
+    D.EventTarget.addInputEventListener(
+      quantityChangeHandler,
+      D.Element.asEventTarget(elm),
+    )
+  | None => ()
+  };
+  */
+
+/*
+ let calculateClickHandler = (_: Dom.event) => {
+   Js.log("CHANGE");
+   calculate();
+ };
+
+ switch (calcButton) {
+ | Some(elm) =>
+   D.EventTarget.addEventListener(
+     "click",
+     calculateClickHandler,
+     D.Element.asEventTarget(elm),
+   )
+ | None => ()
+ };
+ */
 
 /*
  let windowClickHandler = (e: Dom.mouseEvent) => {

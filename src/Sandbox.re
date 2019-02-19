@@ -1,3 +1,14 @@
-let y = [%bs.raw {|'something'|}];
+type pl = {
+  name: string,
+  age: int,
+};
 
-Js.log((y, 9));
+let myObj: pl = {name: "john", age: 7};
+
+[@bs.deriving abstract]
+type ob = {
+  name: string,
+  age: int,
+};
+
+let xyz = ob(~name="john", ~age=7);
